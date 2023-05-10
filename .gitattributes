@@ -1,2 +1,0 @@
-/output/asl_alphabet_detector/tensorflow/python/_pywrap_tensorflow_internal filter=lfs diff=lfs merge=lfs -text
-/output/asl_alphabet_detector/tensorflow/python/_pywrap_tensorflow_internal.pyd filter=lfs diff=lfs merge=lfs -text
