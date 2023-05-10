@@ -3,7 +3,7 @@
 Gage Giovanni  
 Final Project for CPSC 491  
 CSU Fullerton  
-Professor Lidia Morrison  
+Dr. Lidia Morrison  
 
 # .exe download location and instructions
 This repository contains all source code and files used to build the ASL Alphabet Detector  
