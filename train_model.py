@@ -47,14 +47,15 @@ with tf.io.gfile.GFile(PIPELINE, "r") as f:
     proto_str = f.read()                                                                                                                                                                                                                                          
     text_format.Merge(proto_str, pipeline_config)
 
-pipeline_config.model.ssd.num_classes = len(LABELS)
-pipeline_config.train_config.batch_size = 4
-pipeline_config.train_config.fine_tune_checkpoint = os.path.join(PT_MODEL, 'checkpoint', 'ckpt-0')
-pipeline_config.train_config.fine_tune_checkpoint_type = "detection"
-pipeline_config.train_input_reader.label_map_path= os.getenv('LABELMAP')
-pipeline_config.train_input_reader.tf_record_input_reader.input_path[:] = [os.path.join(os.getenv('ANNOTATIONS'), 'train.record')]
-pipeline_config.eval_input_reader[0].label_map_path = os.getenv('LABELMAP')
-pipeline_config.eval_input_reader[0].tf_record_input_reader.input_path[:] = [os.path.join(os.getenv('ANNOTATIONS'), 'test.record')]
+if pipeline_config:
+    pipeline_config.train_config.fine_tune_checkpoint_type = "detection"
+    pipeline_config.train_config.fine_tune_checkpoint = os.path.join(PT_MODEL, 'checkpoint', 'ckpt-0')
+    pipeline_config.model.ssd.num_classes = len(LABELS)
+    pipeline_config.train_input_reader.label_map_path= os.getenv('LABELMAP')
+    pipeline_config.eval_input_reader[0].label_map_path = os.getenv('LABELMAP')
+    pipeline_config.train_input_reader.tf_record_input_reader.input_path[:] = [os.path.join(os.getenv('ANNOTATIONS'), 'train.record')]
+    pipeline_config.eval_input_reader[0].tf_record_input_reader.input_path[:] = [os.path.join(os.getenv('ANNOTATIONS'), 'test.record')]
+    pipeline_config.train_config.batch_size = 4
 
 config_text = text_format.MessageToString(pipeline_config)                                                                                                                                                                                                        
 with tf.io.gfile.GFile(PIPELINE, "wb") as f:                                                                                                                                                                                                                     
@@ -62,5 +63,5 @@ with tf.io.gfile.GFile(PIPELINE, "wb") as f:
 
 # Print out the training command
 TRAINING_SCRIPT = os.path.join(os.getenv('TF_MODELS'), 'research', 'object_detection', 'model_main_tf2.py')
-command = "python {} --model_dir={} --pipeline_config_path={} --num_train_steps=20000".format(TRAINING_SCRIPT, NEW_MODEL_DIR , PIPELINE)
+command = 'python ' + TRAINING_SCRIPT + ' --model_dir=' + NEW_MODEL_DIR + ' --pipeline_config_path=' + PIPELINE + ' --num_train_steps=20000'
 print(command)
