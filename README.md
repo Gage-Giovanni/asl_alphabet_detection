@@ -7,11 +7,12 @@ Dr. Lidia Morrison
 
 # .exe download location and instructions
 This repository contains all source code and files used to build the ASL Alphabet Detector  
-To run this program more easily, download the deployed project with .exe from the link below
+To run this program more easily, download the deployed project with from the link below
 
 https://drive.google.com/file/d/1_kx8-ozKwrqrlTd-62Q2bJ_LykSuqT6d/view?usp=share_link
 
-After downloading, run asl_alphabet_detector.exe to launch the program
+After downloading, ensure that Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017 and 2019 is installed  
+Run asl_alphabet_detector.exe to launch the program  
 
 # Python environment instructions
 Dependencies and setup:
